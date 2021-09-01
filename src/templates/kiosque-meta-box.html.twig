@@ -1,8 +1,10 @@
 <input type="hidden" name="vt_geko-nonce" id="vt_geko-nonce" value="{{ nonce }}" />
 
 <p><strong>Magazine</strong><br />
-<p class="mag-filename">{{ post.name | default('Choisissez un document') }}</p>
-<a href="#" class="button button-primary logo_upload">Choisir un document</a>
+<p class="geko-filename">{{ post.name | default('Aucun document choisi') }}</p>
+<p><button type="button" class="button button-primary geko_upload">Choisir un document</button></p>
+<p><button type="button" class="components-button editor-post-trash is-tertiary is-destructive pdf_delete">Supprimer le document</button></p>
+
 <input class="url" type="hidden" name="url" size="60" value="{{ post.name }}">
 <input class="name" type="hidden" name="name" size="60" value="{{ post.url }}">
 </p>
@@ -11,7 +13,7 @@
 
 
 jQuery(document).ready(function($) {
-    $('.logo_upload').click(function(e) {
+    $('.geko_upload').click(function(e) {
         e.preventDefault();
 
         var custom_uploader = wp.media({
@@ -30,6 +32,13 @@ jQuery(document).ready(function($) {
 
         })
         .open();
+    });
+    
+    $('.geko_delete').click(function(e) {
+        e.preventDefault();
+        $('.url').val('');
+        $('.name').val('');
+        $('.geko-filename').html('Aucun document choisi');
     });
 });
 </script>
